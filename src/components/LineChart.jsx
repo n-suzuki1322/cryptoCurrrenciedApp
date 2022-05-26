@@ -9,7 +9,7 @@ import {
   LineElement,
   Title as ChartTitle,
   Tooltip,
-  Legend,
+  Legend
 } from 'chart.js';
   
 ChartJS.register(

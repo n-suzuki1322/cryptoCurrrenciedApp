@@ -27,6 +27,12 @@ const CryptoDetails = () => {
   const { data, isFetching } = useGetCryptoDetailsQuery(coinId);
   const { data: coinHistory } = useGetCryptoHistoryQuery({ coinId, timePeriod });
   const cryptoDetails = data?.data?.coin;
+  let hvol;
+  for (let key in cryptoDetails) {
+    if (key === '24hVolume') {
+      hvol = cryptoDetails[key];
+    }
+  }
 
   if (isFetching) return 'Loading ... ';
 
@@ -35,7 +41,7 @@ const CryptoDetails = () => {
   const stats = [
     { title: 'Price to USD', value: `$ ${cryptoDetails?.price && millify(cryptoDetails?.price)}`, icon: <DollarCircleOutlined /> },
     { title: 'Rank', value: cryptoDetails?.rank, icon: <NumberOutlined /> },
-    { title: '24h Volume', value: `$ ${cryptoDetails?.hVolume && millify(cryptoDetails?.hVolume)}`, icon: <ThunderboltOutlined /> },
+    { title: '24h Volume', value: `$ ${hvol && millify(hvol)}`, icon: <ThunderboltOutlined /> },
     { title: 'Market Cap', value: `$ ${cryptoDetails?.marketCap && millify(cryptoDetails?.marketCap)}`, icon: <DollarCircleOutlined /> },
     { title: 'All-time-high(daily avg.)', value: `$ ${cryptoDetails?.allTimeHigh?.price && millify(cryptoDetails?.allTimeHigh?.price)}`, icon: <TrophyOutlined /> },
   ];
